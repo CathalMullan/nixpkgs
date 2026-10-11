@@ -425,6 +425,32 @@ in
       '';
     };
 
+    defaultPath = mkOption {
+      type = types.listOf types.package;
+      default = [
+        pkgs.coreutils
+        pkgs.findutils
+        pkgs.gnugrep
+        pkgs.gnused
+        cfg.package
+      ];
+      defaultText = literalExpression ''
+        [
+          pkgs.coreutils
+          pkgs.findutils
+          pkgs.gnugrep
+          pkgs.gnused
+          config.systemd.package
+        ]
+      '';
+      description = ''
+        Packages added to the {env}`PATH` environment variable of all
+        system and user services.
+
+        Services can opt out by setting `enableDefaultPath = false`.
+      '';
+    };
+
     globalEnvironment = mkOption {
       type =
         with types;
